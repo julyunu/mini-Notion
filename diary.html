@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pastel Diary & Mood Widget</title>
+  <title>Pastel 100 Mood & Diary Widget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
@@ -19,30 +19,30 @@
       background-color: #fdf2f5;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* Bám gọn từ trên xuống để không bị hổng khi nhúng Notion */
+      align-items: flex-start;
       text-align: center;
-      padding: 26px 16px 20px;
+      padding: 24px 16px 18px;
       color: #7a4958;
     }
 
     .widget {
-      max-width: 520px;
+      max-width: 560px;
       width: 100%;
     }
 
     .greeting {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Lora', Georgia, serif;
       font-style: italic;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 400;
-      line-height: 1.1;
+      line-height: 1.15;
       color: #9e6273;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .clock {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 52px;
+      font-size: 50px;
       font-weight: 400;
       letter-spacing: 0.02em;
       color: #7a4958;
@@ -51,9 +51,9 @@
     }
 
     .date {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 18px;
-      letter-spacing: 0.05em;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 15px;
+      letter-spacing: 0.04em;
       line-height: 1.15;
       color: #a66d7e;
       text-transform: lowercase;
@@ -67,12 +67,20 @@
       border: none;
     }
 
-    .quote {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+    .quote-en {
+      font-family: 'Lora', Georgia, serif;
       font-style: italic;
-      font-size: 19px;
-      color: #965a6c;
-      line-height: 1.25;
+      font-size: 17px;
+      color: #8c5364;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .quote-vi {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 14.5px;
+      color: #a66d7e;
+      line-height: 1.35;
       margin-bottom: 14px;
     }
 
@@ -80,7 +88,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
@@ -91,10 +99,10 @@
       background-color: #9e6273;
       color: #fff8fa;
       text-decoration: none;
-      padding: 7px 16px;
+      padding: 7px 15px;
       border-radius: 999px;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 15px;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 13.5px;
       line-height: 1.1;
       transition: opacity 0.2s ease;
     }
@@ -106,50 +114,171 @@
       border: 1px solid #dfb6c3;
       color: #8c5364;
       text-decoration: none;
-      padding: 7px 16px;
+      padding: 7px 15px;
       border-radius: 999px;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 15px;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 13.5px;
       line-height: 1.1;
       background: transparent;
+      cursor: pointer;
       transition: opacity 0.2s ease;
     }
 
     .btn-solid:hover,
     .btn-outline:hover {
-      opacity: 0.85;
+      opacity: 0.82;
     }
   </style>
 </head>
 <body>
   <main class="widget">
-    <div class="greeting" id="greeting">good morning, how are you feeling?</div>
+    <div class="greeting" id="greeting">good morning · hôm nay bạn thấy thế nào?</div>
     <div class="clock" id="clock">11:00 am</div>
     <div class="date" id="date">thursday, november 19</div>
     <hr class="divider" />
-    <p class="quote" id="quote">“Write down what your heart is holding today. No wrong answers.”</p>
+    <p class="quote-en" id="quote-en">“Write down what your heart is holding today. No wrong answers.”</p>
+    <p class="quote-vi" id="quote-vi">Viết xuống những gì lòng bạn đang giữ hôm nay nhé. Không có cảm xúc nào là sai cả.</p>
 
     <div class="actions">
-      <a class="btn-solid" href="https://app.notion.com/p/Cute-Digital-Diary-0468197b1d218380b83181fbdc95baf9?source=copy_link#bbe8197b1d21831c8eb581ee8efebc66" target="_blank">♡ Write today's diary →</a>
-      <a class="btn-outline" href="#mood" target="_blank">• Log today's mood →</a>
+      <a class="btn-solid" href="#diary" target="_blank">♡ Write diary · Viết nhật ký →</a>
+      <a class="btn-outline" href="#mood" target="_blank">• Log mood · Ghi tâm trạng →</a>
+      <button class="btn-outline" type="button" onclick="randomQuote()" title="Đổi ngẫu nhiên câu khác">↻</button>
     </div>
   </main>
 
   <script>
-    const quotes = [
-      "“Write down what your heart is holding today. No wrong answers.”",
-      "“Pick today's mood honestly—every feeling deserves a quiet page.”",
-      "“What made you smile softly today, even for just a moment?”",
-      "“Let the paper carry the thoughts that feel too heavy to keep inside.”",
-      "“Check in with yourself gently: what does your soul need right now?”"
+    const moodQuotes = [
+      { en: "“Write down what your heart is holding today. No wrong answers.”", vi: "Viết xuống những gì lòng bạn đang giữ hôm nay nhé. Không có cảm xúc nào là sai cả." },
+      { en: "“Pick today's mood honestly—every feeling deserves a quiet page.”", vi: "Gọi tên tâm trạng hôm nay thật thành thật—mọi cảm xúc đều xứng đáng có một trang giấy bình yên." },
+      { en: "“You don't have to carry everything in your head; let the page hold it for you.”", vi: "Bạn không cần giữ hết mọi thứ trong đầu đâu; cứ để trang giấy này gánh đỡ một phần." },
+      { en: "“What made you smile softly today, even for just a fleeting second?”", vi: "Điều gì đã khiến bạn khẽ mỉm cười hôm nay, dù chỉ trong một khoảnh khắc thoáng qua?" },
+      { en: "“Even heavy, cloudy days deserve to be recorded with kindness.”", vi: "Ngay cả những ngày nhiều mây và nặng lòng cũng xứng đáng được ghi lại thật dịu dàng." },
+      { en: "“Check in with yourself gently: what does your soul need right now?”", vi: "Hỏi thăm bản thân một chút nhé: tâm hồn bạn lúc này đang cần điều gì nhất?" },
+      { en: "“Feelings are like weather—notice them passing without judging yourself.”", vi: "Cảm xúc cũng giống như thời tiết—chỉ cần lặng lẽ quan sát nó đi qua mà đừng tự trách mình." },
+      { en: "“A few honest lines today will become a warm memory for your future self.”", vi: "Vài dòng chân thật hôm nay sẽ trở thành một kỷ niệm ấm áp cho chính bạn sau này." },
+      { en: "“It's okay if all you did today was breathe and take things one hour at a time.”", vi: "Không sao cả nếu hôm nay bạn chỉ kịp hít thở và đi qua từng giờ một cách chậm rãi." },
+      { en: "“Pour your tangled thoughts onto paper until your mind feels light again.”", vi: "Trút hết những suy nghĩ rối bời lên trang giấy cho tới khi tâm trí bạn nhẹ nhõm trở lại." },
+      { en: "“Celebrate the tiny quiet wins nobody else saw today.”", vi: "Tự thưởng cho mình một lời khen vì những cố gắng thầm lặng hôm nay chẳng ai thấy." },
+      { en: "“Be soft with your heart today; you are still learning and growing.”", vi: "Hãy dịu dàng với trái tim mình hôm nay nhé; bạn vẫn đang học cách trưởng thành từng chút một." },
+      { en: "“What emotion is asking for your attention right now?”", vi: "Cảm xúc nào đang muốn được bạn lắng nghe và vỗ về ngay lúc này?" },
+      { en: "“Your energy is precious—notice what drained you and what refilled you today.”", vi: "Năng lượng của bạn rất quý giá—hãy ghi lại điều gì làm bạn mệt và điều gì sưởi ấm bạn hôm nay." },
+      { en: "“Close the day by forgiving yourself for what was left unfinished.”", vi: "Khép lại một ngày bằng cách bao dung với chính mình về những điều còn dang dở." },
+      { en: "“If today had a color, what shade would it be and why?”", vi: "Nếu hôm nay có một màu sắc, nó sẽ là gam màu gì và vì sao?" },
+      { en: "“You are allowed to rest before you feel completely exhausted.”", vi: "Bạn được phép nghỉ ngơi ngay cả trước khi thấy mình kiệt sức hoàn toàn." },
+      { en: "“Write as if no one will ever read it—only your own heart.”", vi: "Hãy viết như thể sẽ chẳng bao giờ có ai đọc được—ngoài chính trái tim bạn." },
+      { en: "“Which moment today felt like a deep, comforting exhale?”", vi: "Khoảnh khắc nào hôm nay giống như một tiếng thở phào nhẹ nhõm và dễ chịu?" },
+      { en: "“Sadness doesn't mean you're failing; it just means you're human.”", vi: "Buồn bã không có nghĩa là bạn đang thất bại; nó chỉ chứng tỏ bạn là một con người biết cảm nhận." },
+      { en: "“Name three tiny things that brought you comfort today.”", vi: "Kể tên ba điều nhỏ bé đã mang lại cho bạn cảm giác dễ chịu hôm nay." },
+      { en: "“Give yourself permission to feel everything without rushing to fix it.”", vi: "Cho phép bản thân cảm nhận trọn vẹn mọi thứ mà không cần vội vàng sửa chữa ngay." },
+      { en: "“What is one worry you can set down on this page until tomorrow?”", vi: "Có nỗi lo nào bạn có thể tạm đặt xuống trang giấy này cho tới ngày mai không?" },
+      { en: "“Your pace doesn't need to match anyone else's to be valid.”", vi: "Nhịp độ của bạn không cần phải giống bất kỳ ai khác mới là đúng đắn." },
+      { en: "“Notice how your shoulders feel right now—let them drop and soften.”", vi: "Để ý xem đôi vai bạn lúc này thế nào—hãy thả lỏng và hạ nhẹ chúng xuống nhé." },
+      { en: "“Even a single sentence in your diary counts as showing up for yourself.”", vi: "Ngay cả một câu duy nhất trong nhật ký cũng là cách bạn đang trân trọng chính mình." },
+      { en: "“What surprised you in a good way today?”", vi: "Điều gì đã làm bạn bất ngờ theo một cách dễ thương hôm nay?" },
+      { en: "“Be your own safe place when the outside world feels too loud.”", vi: "Hãy trở thành chốn bình yên của chính mình khi thế giới ngoài kia quá ồn ào." },
+      { en: "“Are you hungry, tired, overstimulated, or just needing a hug?”", vi: "Bạn đang đói, đang mệt, đang quá tải, hay chỉ đơn giản là cần một cái ôm?" },
+      { en: "“Let go of the pressure to have a 'productive' day—just be present.”", vi: "Bỏ bớt áp lực phải có một ngày thật 'năng suất'—chỉ cần hiện diện trọn vẹn là đủ." },
+      { en: "“What song matches the rhythm of your mood today?”", vi: "Bài hát nào khớp nhất với nhịp điệu tâm trạng của bạn hôm nay?" },
+      { en: "“You survived 100% of your hardest days so far. Be proud of that.”", vi: "Bạn đã đi qua 100% những ngày khó khăn nhất từ trước tới nay. Hãy tự hào về điều đó." },
+      { en: "“Write a one-line love note to the version of you from a year ago.”", vi: "Viết một dòng nhắn nhủ yêu thương gửi tới phiên bản của bạn một năm trước." },
+      { en: "“Sometimes feeling 'meh' is simply your mind asking for quiet.”", vi: "Đôi khi cảm giác 'chẳng buồn chẳng vui' chỉ là tâm trí bạn đang xin một khoảng lặng." },
+      { en: "“What boundary protected your peace today?”", vi: "Ranh giới nào đã giúp bảo vệ sự bình yên của bạn ngày hôm nay?" },
+      { en: "“Don't edit your feelings to make them sound prettier on paper.”", vi: "Đừng gọt giũa cảm xúc của mình chỉ để nghe cho hay hơn trên mặt giấy." },
+      { en: "“If your mood today were weather, would it be sun, drizzle, or fog?”", vi: "Nếu tâm trạng hôm nay là thời tiết, nó sẽ là nắng ấm, mưa phùn hay sương mù?" },
+      { en: "“Thank yourself for getting through things you never talked about.”", vi: "Cảm ơn bản thân vì đã tự vượt qua những chuyện bạn chưa từng kể với ai." },
+      { en: "“What is something you're quietly looking forward to this week?”", vi: "Có điều gì nhỏ bé bạn đang thầm mong chờ trong tuần này không?" },
+      { en: "“Softness is a strength, especially on days that test your patience.”", vi: "Sự dịu dàng cũng là một loại sức mạnh, nhất là vào những ngày thử thách lòng kiên nhẫn." },
+      { en: "“Put down the phone for five minutes and listen to your own thoughts.”", vi: "Đặt điện thoại xuống năm phút và lắng nghe những suy nghĩ thật của chính mình nhé." },
+      { en: "“What made you feel seen, heard, or understood recently?”", vi: "Điều gì gần đây khiến bạn cảm thấy mình được thấu hiểu và lắng nghe?" },
+      { en: "“It's okay to outgrow old versions of yourself without feeling guilty.”", vi: "Không sao cả khi bạn lớn lên và rời xa phiên bản cũ của mình mà không cần thấy áy náy." },
+      { en: "“Capture one ordinary detail from today before it fades away.”", vi: "Lưu lại một chi tiết bình dị của hôm nay trước khi nó trôi vào quên lãng." },
+      { en: "“You don't need all the answers tonight; sleep is also a form of healing.”", vi: "Bạn không cần có hết mọi câu trả lời trong tối nay; giấc ngủ cũng là một cách chữa lành." },
+      { en: "“How did you show kindness to yourself today?”", vi: "Hôm nay bạn đã đối xử tử tế với bản thân bằng cách nào?" },
+      { en: "“A messy journal entry is always better than keeping everything bottled up.”", vi: "Một trang nhật ký lộn xộn vẫn luôn tốt hơn là dồn nén mọi thứ trong lòng." },
+      { en: "“Notice what makes your heart feel light—do a little more of that tomorrow.”", vi: "Để ý xem điều gì làm lòng bạn nhẹ nhõm—ngày mai hãy làm điều đó nhiều hơn một chút." },
+      { en: "“You are not behind in life; you are simply on your own timeline.”", vi: "Bạn không hề chậm chân trong cuộc sống; bạn chỉ đang đi trên múi giờ của riêng mình." },
+      { en: "“What truth have you been avoiding writing down?”", vi: "Có sự thật nào bạn vẫn đang né tránh chưa dám viết xuống giấy không?" },
+      { en: "“Breathe in calm, breathe out the expectations you never agreed to.”", vi: "Hít vào sự bình thản, thở ra những kỳ vọng mà bạn chưa từng đồng ý gánh vác." },
+      { en: "“Even a 10% battery day deserves gentle care, not harsh criticism.”", vi: "Ngay cả một ngày pin chỉ còn 10% cũng xứng đáng được nâng niu thay vì trách móc." },
+      { en: "“What scent, taste, or sound comforted you today?”", vi: "Mùi hương, hương vị hay âm thanh nào đã vỗ về bạn ngày hôm nay?" },
+      { en: "“Your feelings are valid even when nobody else understands why.”", vi: "Cảm xúc của bạn luôn có lý do chính đáng ngay cả khi không ai hiểu được." },
+      { en: "“Write down three things you don't need to control right now.”", vi: "Viết ra ba điều bạn không cần phải cố kiểm soát ngay lúc này." },
+      { en: "“Small joys count just as much as big milestones.”", vi: "Những niềm vui nhỏ bé cũng đáng giá hệt như những cột mốc lớn lao." },
+      { en: "“What would you say to your best friend if they felt the way you do today?”", vi: "Bạn sẽ nói gì với người bạn thân nhất nếu hôm nay họ cũng mang tâm trạng giống bạn?" },
+      { en: "“Let today be enough, exactly as it unfolded.”", vi: "Hãy để ngày hôm nay là đủ, trọn vẹn theo đúng cách nó đã diễn ra." },
+      { en: "“Where in your body are you holding tension right now?”", vi: "Cơ thể bạn lúc này đang giữ sự căng thẳng ở chỗ nào?" },
+      { en: "“Happiness often hides in quiet mornings and unhurried evenings.”", vi: "Hạnh phúc thường trốn trong những buổi sáng bình yên và những buổi tối không vội vã." },
+      { en: "“Don't compare your behind-the-scenes with everyone else's highlight reel.”", vi: "Đừng so sánh hậu trường của mình với những thước phim đẹp nhất của người khác." },
+      { en: "“What is one thing you are grateful your body did for you today?”", vi: "Có điều gì bạn thấy biết ơn vì cơ thể đã làm cho mình hôm nay không?" },
+      { en: "“Overthinking is just your brain trying to protect you—thank it and rest.”", vi: "Suy nghĩ nhiều chỉ là cách bộ não cố bảo vệ bạn—hãy cảm ơn nó và cho phép mình nghỉ ngơi." },
+      { en: "“Write down a dream, wish, or tiny hope you're keeping in your pocket.”", vi: "Viết xuống một ước mơ, điều nguyện cầu hay một hy vọng nhỏ bạn đang cất giữ." },
+      { en: "“You don't have to explain your quiet seasons to anyone.”", vi: "Bạn không cần phải giải thích những khoảng lặng của mình với bất kỳ ai." },
+      { en: "“What made today feel a little softer than yesterday?”", vi: "Điều gì khiến hôm nay trở nên dịu dàng hơn hôm qua một chút?" },
+      { en: "“Release the need to be 'on' all the time. Unplug and just exist.”", vi: "Thả lỏng nhu cầu lúc nào cũng phải rạng rỡ. Cứ ngắt kết nối và chỉ cần hiện hữu thôi." },
+      { en: "“If you could bottle one feeling from today, which one would it be?”", vi: "Nếu có thể cất giữ một cảm xúc của hôm nay vào chiếc lọ nhỏ, bạn sẽ chọn cảm xúc nào?" },
+      { en: "“Healing isn't linear—having a low day doesn't erase your progress.”", vi: "Chữa lành không phải đường thẳng—một ngày chùng xuống không hề xóa đi nỗ lực của bạn." },
+      { en: "“What is a gentle reminder you need to hear before sleeping tonight?”", vi: "Lời nhắc nhở dịu dàng nào bạn cần được nghe trước khi chìm vào giấc ngủ tối nay?" },
+      { en: "“Your worth is not measured by how much you crossed off your to-do list.”", vi: "Giá trị của bạn không được đo bằng số đầu việc bạn gạch xong trong danh sách." },
+      { en: "“Describe today in just three honest words.”", vi: "Miêu tả ngày hôm nay bằng đúng ba từ chân thật nhất." },
+      { en: "“Give your mind permission to wander somewhere peaceful for a moment.”", vi: "Cho phép tâm trí bạn lang thang tới một nơi bình yên trong chốc lát." },
+      { en: "“What drained your spirit today, and how can you step back from it?”", vi: "Điều gì làm tinh thần bạn hao hụt hôm nay, và bạn có thể lùi lại khỏi nó bằng cách nào?" },
+      { en: "“You are allowed to change your mind, your plans, and your pace.”", vi: "Bạn được phép thay đổi suy nghĩ, kế hoạch và cả nhịp bước của chính mình." },
+      { en: "“Notice the light in the room right now—take a slow breath with it.”", vi: "Ngắm nhìn ánh sáng trong căn phòng lúc này—và hít một hơi thật chậm cùng nó." },
+      { en: "“What is something sweet you can do for yourself in the next hour?”", vi: "Có điều gì dễ thương bạn có thể tự làm cho mình trong một giờ tới không?" },
+      { en: "“Some days are for blooming, and some days are quietly for growing roots.”", vi: "Có những ngày để nở hoa, và có những ngày lặng lẽ để nuôi dưỡng bộ rễ." },
+      { en: "“Let this page be a judgment-free zone for everything you're feeling.”", vi: "Hãy để trang giấy này là vùng an toàn không phán xét cho mọi cảm xúc của bạn." },
+      { en: "“Who or what reminded you that there is still goodness in the world?”", vi: "Ai hoặc điều gì đã nhắc bạn nhớ rằng thế giới này vẫn còn rất nhiều điều tử tế?" },
+      { en: "“You don't need to carry yesterday's heaviness into today.”", vi: "Bạn không cần phải mang theo nỗi nặng lòng của ngày hôm qua bước sang hôm nay." },
+      { en: "“What part of your daily routine felt like a warm hug today?”", vi: "Khoảnh khắc nào trong thói quen hằng ngày hôm nay giống như một cái ôm ấm áp?" },
+      { en: "“Be patient with the chapters of your life that haven't made sense yet.”", vi: "Hãy kiên nhẫn với những chương đời mà lúc này bạn chưa thể hiểu hết ý nghĩa." },
+      { en: "“Write down what you want to remember about who you are right now.”", vi: "Ghi lại những điều bạn muốn nhớ về con người của chính mình ở thời điểm này." },
+      { en: "“It's brave to look inward and ask yourself how you're truly doing.”", vi: "Thật dũng cảm khi bạn dám nhìn vào bên trong và tự hỏi mình đang thực sự ổn không." },
+      { en: "“What can you simplify today so your heart has more room to breathe?”", vi: "Bạn có thể đơn giản hóa điều gì hôm nay để trái tim có thêm khoảng trống hít thở?" },
+      { en: "“Even quiet progress is still progress. Keep going gently.”", vi: "Ngay cả sự tiến bộ thầm lặng cũng vẫn là tiến bộ. Cứ bước tiếp thật nhẹ nhàng nhé." },
+      { en: "“What made you laugh or feel genuinely carefree recently?”", vi: "Điều gì gần đây khiến bạn bật cười hoặc cảm thấy vô tư thật sự?" },
+      { en: "“Protect your morning peace before letting the world's noise in.”", vi: "Giữ gìn sự bình yên buổi sáng trước khi để những ồn ào của thế giới bước vào." },
+      { en: "“You are allowed to say 'not today' to things that overwhelm you.”", vi: "Bạn hoàn toàn có quyền nói 'không phải hôm nay' với những điều làm mình quá tải." },
+      { en: "“What emotion feels strongest in your chest right now?”", vi: "Cảm xúc nào đang hiện diện rõ nhất trong lồng ngực bạn ngay lúc này?" },
+      { en: "“A cup of tea, a deep breath, and a blank page can reset almost anything.”", vi: "Một tách trà ấm, một hơi thở sâu và một trang giấy trắng có thể làm dịu lại hầu hết mọi thứ." },
+      { en: "“Celebrate the fact that you're still trying, even on low-energy days.”", vi: "Trân trọng việc bạn vẫn đang cố gắng, ngay cả vào những ngày cạn năng lượng." },
+      { en: "“What lesson did today whisper to you?”", vi: "Ngày hôm nay đã khẽ thì thầm với bạn bài học nhỏ nào?" },
+      { en: "“Treat yourself like someone you deeply love and want to see happy.”", vi: "Hãy đối xử với bản thân như với một người bạn rất yêu thương và luôn mong họ hạnh phúc." },
+      { en: "“Leave the perfectionism at the door—write with raw honesty.”", vi: "Để sự cầu toàn ngoài cánh cửa—hãy viết bằng tất cả sự chân thật mộc mạc." },
+      { en: "“What is one thing you're proud of handling calmly this week?”", vi: "Có điều gì trong tuần này bạn tự hào vì mình đã xử lý thật bình tĩnh không?" },
+      { en: "“Your heart knows when it needs stillness. Listen to it.”", vi: "Trái tim bạn luôn biết khi nào nó cần sự tĩnh lặng. Hãy lắng nghe nó nhé." },
+      { en: "“End this note with one kind sentence addressed directly to you.”", vi: "Khép lại dòng ghi chú này bằng một câu nói thật dịu dàng gửi thẳng tới chính bạn." },
+      { en: "“Tomorrow is a fresh blank page—tonight, simply rest.”", vi: "Ngày mai là một trang giấy trắng tinh khôi—còn tối nay, bạn chỉ cần nghỉ ngơi thôi." }
     ];
+
+    let currentIndex = 0;
+
+    function getDayOfYear(date) {
+      const start = new Date(date.getFullYear(), 0, 0);
+      const diff = date - start;
+      return Math.floor(diff / (1000 * 60 * 60 * 24));
+    }
+
+    function renderQuote(index) {
+      const item = moodQuotes[index % moodQuotes.length];
+      document.getElementById("quote-en").textContent = item.en;
+      document.getElementById("quote-vi").textContent = item.vi;
+    }
+
+    function randomQuote() {
+      let next = Math.floor(Math.random() * moodQuotes.length);
+      if (next === currentIndex) {
+        next = (currentIndex + 1) % moodQuotes.length;
+      }
+      currentIndex = next;
+      renderQuote(currentIndex);
+    }
 
     function updateWidget() {
       const now = new Date();
 
       const hour = now.getHours();
       const period = hour < 12 ? "good morning" : hour < 18 ? "good afternoon" : "good evening";
-      document.getElementById("greeting").textContent = `${period}, how are you feeling?`;
+      document.getElementById("greeting").textContent = `${period} · hôm nay tâm trạng có ổn hông?`;
 
       const ampm = hour >= 12 ? "pm" : "am";
       const displayHour = hour % 12 === 0 ? 12 : hour % 12;
@@ -159,11 +288,10 @@
       const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       document.getElementById("date").textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
-
-      const quoteIndex = now.getDate() % quotes.length;
-      document.getElementById("quote").textContent = quotes[quoteIndex];
     }
 
+    currentIndex = getDayOfYear(new Date()) % moodQuotes.length;
+    renderQuote(currentIndex);
     updateWidget();
     setInterval(updateWidget, 1000);
   </script>
