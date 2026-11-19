@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pastel Diary & Mood Widget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #fdf2f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* Bám gọn từ trên xuống để không bị hổng khi nhúng Notion */
+      text-align: center;
+      padding: 26px 16px 20px;
+      color: #7a4958;
+    }
+
+    .widget {
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .greeting {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.1;
+      color: #9e6273;
+      margin-bottom: 2px;
+    }
+
+    .clock {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 52px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: #7a4958;
+      line-height: 0.98;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      letter-spacing: 0.05em;
+      line-height: 1.15;
+      color: #a66d7e;
+      text-transform: lowercase;
+    }
+
+    .divider {
+      width: 44px;
+      height: 1px;
+      background-color: #e4bcc8;
+      margin: 10px auto;
+      border: none;
+    }
+
+    .quote {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 19px;
+      color: #965a6c;
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #9e6273;
+      color: #fff8fa;
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 15px;
+      line-height: 1.1;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #dfb6c3;
+      color: #8c5364;
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 15px;
+      line-height: 1.1;
+      background: transparent;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-solid:hover,
+    .btn-outline:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <main class="widget">
+    <div class="greeting" id="greeting">good morning, how are you feeling?</div>
+    <div class="clock" id="clock">11:00 am</div>
+    <div class="date" id="date">thursday, november 19</div>
+    <hr class="divider" />
+    <p class="quote" id="quote">“Write down what your heart is holding today. No wrong answers.”</p>
+
+    <div class="actions">
+      <a class="btn-solid" href="https://app.notion.com/p/Cute-Digital-Diary-0468197b1d218380b83181fbdc95baf9?source=copy_link#bbe8197b1d21831c8eb581ee8efebc66" target="_blank">♡ Write today's diary →</a>
+      <a class="btn-outline" href="#mood" target="_blank">• Log today's mood →</a>
+    </div>
+  </main>
+
+  <script>
+    const quotes = [
+      "“Write down what your heart is holding today. No wrong answers.”",
+      "“Pick today's mood honestly—every feeling deserves a quiet page.”",
+      "“What made you smile softly today, even for just a moment?”",
+      "“Let the paper carry the thoughts that feel too heavy to keep inside.”",
+      "“Check in with yourself gently: what does your soul need right now?”"
+    ];
+
+    function updateWidget() {
+      const now = new Date();
+
+      const hour = now.getHours();
+      const period = hour < 12 ? "good morning" : hour < 18 ? "good afternoon" : "good evening";
+      document.getElementById("greeting").textContent = `${period}, how are you feeling?`;
+
+      const ampm = hour >= 12 ? "pm" : "am";
+      const displayHour = hour % 12 === 0 ? 12 : hour % 12;
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      document.getElementById("clock").textContent = `${displayHour}:${minutes} ${ampm}`;
+
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      document.getElementById("date").textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
+
+      const quoteIndex = now.getDate() % quotes.length;
+      document.getElementById("quote").textContent = quotes[quoteIndex];
+    }
+
+    updateWidget();
+    setInterval(updateWidget, 1000);
+  </script>
+</body>
+</html>
