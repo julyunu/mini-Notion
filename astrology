@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pastel Lavender Moon & Sky Widget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #f3eff9; /* Nền tím pastel dịu nhẹ */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 24px 16px;
+      color: #46386b;
+    }
+
+    .widget {
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .greeting {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 26px;
+      font-weight: 400;
+      color: #3d3061;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+
+    .clock {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 54px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: #2f2352;
+      line-height: 1.02;
+      margin-bottom: 8px;
+      cursor: pointer; /* Hiện bàn tay khi di chuột vào đồng hồ */
+      user-select: none; /* Tránh bôi đen chữ khi bấm nhanh */
+      transition: opacity 0.2s ease, transform 0.15s ease;
+      display: inline-block;
+    }
+
+    .clock:hover {
+      opacity: 0.78;
+    }
+
+    .clock:active {
+      transform: scale(0.98);
+    }
+
+    .date {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: #8978b8;
+      text-transform: uppercase;
+      line-height: 1.25;
+    }
+
+    .divider {
+      width: 56px;
+      height: 1px;
+      background-color: #c8bce3;
+      margin: 13px auto 15px;
+      border: none;
+    }
+
+    .moon-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      margin-bottom: 8px;
+    }
+
+    .moon-svg {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .moon-label {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 18.5px;
+      font-weight: 400;
+      color: #493b70;
+      line-height: 1.2;
+    }
+
+    .astro-line {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 16.5px;
+      color: #7766a6;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <main class="widget">
+    <div class="greeting" id="greeting">Good afternoon, Vio</div>
+    <div class="clock" id="clock" onclick="toggleClockFormat()" title="Bấm để đổi định dạng 12h / 24h">3:38 pm</div>
+    <div class="date" id="date">THURSDAY, NOVEMBER 19</div>
+    <hr class="divider" />
+
+    <div class="moon-row">
+      <svg class="moon-svg" id="moon-svg" viewBox="0 0 36 36" aria-hidden="true">
+        <circle cx="18" cy="18" r="15.5" fill="none" stroke="#46386b" stroke-width="1.6" />
+        <path id="moon-lit" d="" fill="#46386b" />
+      </svg>
+      <span class="moon-label" id="moon-label">Waxing Gibbous, 70% lit</span>
+    </div>
+
+    <div class="astro-line" id="astro-line">Sun in Scorpio · Moon in Pisces</div>
+  </main>
+
+  <script>
+    const USER_NAME = "Vio";
+
+    // Ghi nhớ chế độ 12h hoặc 24h người dùng đã chọn (mặc định là 12h)
+    let is24Hour = localStorage.getItem("violette_is24h") === "true";
+
+    const dailyAstro = [
+      "Sun in Scorpio · Moon in Pisces",
+      "Sun in Scorpio · Moon in Aries",
+      "Sun in Scorpio · Moon in Taurus",
+      "Sun in Scorpio · Moon in Gemini",
+      "Sun in Scorpio · Moon in Cancer",
+      "Sun in Scorpio · Moon in Leo",
+      "Sun in Scorpio · Moon in Virgo",
+      "Sun in Scorpio · Moon in Libra",
+      "Sun in Scorpio · Moon in Scorpio",
+      "Sun in Sagittarius · Moon in Sagittarius",
+      "Sun in Sagittarius · Moon in Capricorn",
+      "Sun in Sagittarius · Moon in Aquarius"
+    ];
+
+    function toggleClockFormat() {
+      is24Hour = !is24Hour;
+      localStorage.setItem("violette_is24h", is24Hour);
+      updateWidget();
+    }
+
+    function getDayOfYear(date) {
+      const start = new Date(date.getFullYear(), 0, 0);
+      const diff = date - start;
+      return Math.floor(diff / (1000 * 60 * 60 * 24));
+    }
+
+    function getMoonPhase(date) {
+      const synodicMonth = 29.53058867;
+      const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14, 0);
+      const daysSince = (date.getTime() - knownNewMoon) / (1000 * 60 * 60 * 24);
+      const phase = ((daysSince % synodicMonth) + synodicMonth) % synodicMonth / synodicMonth;
+      return phase;
+    }
+
+    function getPhaseName(phase) {
+      if (phase < 0.03 || phase >= 0.97) return "New Moon";
+      if (phase < 0.22) return "Waxing Crescent";
+      if (phase < 0.28) return "First Quarter";
+      if (phase < 0.47) return "Waxing Gibbous";
+      if (phase < 0.53) return "Full Moon";
+      if (phase < 0.72) return "Waning Gibbous";
+      if (phase < 0.78) return "Last Quarter";
+      return "Waning Crescent";
+    }
+
+    function renderMoonGraphic(phase) {
+      const r = 15.5;
+      const cx = 18;
+      const cy = 18;
+      const litPath = document.getElementById("moon-lit");
+
+      const illumination = Math.round(((1 - Math.cos(2 * Math.PI * phase)) / 2) * 100);
+      const name = getPhaseName(phase);
+      document.getElementById("moon-label").textContent = `${name}, ${illumination}% lit`;
+
+      if (illumination <= 1) {
+        litPath.setAttribute("d", "");
+        return;
+      }
+      if (illumination >= 99) {
+        litPath.setAttribute("d", `M ${cx} ${cy - r} A ${r} ${r} 0 1 0 ${cx} ${cy + r} A ${r} ${r} 0 1 0 ${cx} ${cy - r} Z`);
+        return;
+      }
+
+      const waxing = phase < 0.5;
+      const rx = Math.abs(Math.cos(2 * Math.PI * phase)) * r;
+      const topY = cy - r;
+      const botY = cy + r;
+
+      let d = "";
+      if (waxing) {
+        const sweepInner = phase < 0.25 ? 0 : 1;
+        d = `M ${cx} ${topY} A ${r} ${r} 0 0 1 ${cx} ${botY} A ${rx} ${r} 0 0 ${sweepInner} ${cx} ${topY} Z`;
+      } else {
+        const sweepInner = phase < 0.75 ? 1 : 0;
+        d = `M ${cx} ${topY} A ${r} ${r} 0 0 0 ${cx} ${botY} A ${rx} ${r} 0 0 ${sweepInner} ${cx} ${topY} Z`;
+      }
+      litPath.setAttribute("d", d);
+    }
+
+    function updateWidget() {
+      const now = new Date();
+
+      const hour = now.getHours();
+      const period = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+      document.getElementById("greeting").textContent = `${period}, ${USER_NAME}`;
+
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      if (is24Hour) {
+        const hour24 = String(hour).padStart(2, "0");
+        document.getElementById("clock").textContent = `${hour24}:${minutes}`;
+      } else {
+        const ampm = hour >= 12 ? "pm" : "am";
+        const displayHour = hour % 12 === 0 ? 12 : hour % 12;
+        document.getElementById("clock").textContent = `${displayHour}:${minutes} ${ampm}`;
+      }
+
+      const days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+      const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+      document.getElementById("date").textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
+
+      const phase = getMoonPhase(now);
+      renderMoonGraphic(phase);
+
+      const dayNum = getDayOfYear(now);
+      document.getElementById("astro-line").textContent = dailyAstro[dayNum % dailyAstro.length];
+    }
+
+    updateWidget();
+    setInterval(updateWidget, 1000);
+  </script>
+</body>
+</html>
