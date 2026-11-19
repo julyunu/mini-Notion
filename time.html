@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pastel Pink Clock Widget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #fdf2f5; /* Nền hồng nhạt pastel */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 24px;
+      color: #7a4958;
+    }
+
+    .widget {
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .greeting {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 26px;
+      font-weight: 400;
+      color: #9e6273; /* Lời chào hồng trầm nhẹ */
+      margin-bottom: 4px;
+    }
+
+    .clock {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 56px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: #7a4958; /* Đồng hồ nâu hồng đậm dịu mắt */
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .date {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      color: #a66d7e; /* Ngày tháng hồng phấn đậm */
+      text-transform: lowercase;
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background-color: #e4bcc8; /* Đường kẻ hồng nhạt */
+      margin: 14px auto;
+      border: none;
+    }
+
+    .quote {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 21px;
+      color: #965a6c; /* Câu quote hồng dusty rose */
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <main class="widget">
+    <div class="greeting" id="greeting">good morning, lovely</div>
+    <div class="clock" id="clock">11:00 am</div>
+    <div class="date" id="date">thursday, november 19</div>
+    <hr class="divider" />
+    <p class="quote" id="quote">“My energy is precious. I spend it wisely.”</p>
+  </main>
+
+  <script>
+    const quotes = [
+      "“My energy is precious. I spend it wisely.”",
+      "“Slow down. Everything you need will come to you at the right time.”",
+      "“Be gentle with yourself; you are doing the best you can.”",
+      "“Small, quiet steps still move you forward.”",
+      "“Protect your peace and honor your own pace.”"
+    ];
+
+    function updateWidget() {
+      const now = new Date();
+
+      const hour = now.getHours();
+      const period = hour < 12 ? "good morning" : hour < 18 ? "good afternoon" : "good evening";
+      document.getElementById("greeting").textContent = `${period}, lovely`;
+
+      const ampm = hour >= 12 ? "pm" : "am";
+      const displayHour = hour % 12 === 0 ? 12 : hour % 12;
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      document.getElementById("clock").textContent = `${displayHour}:${minutes} ${ampm}`;
+
+      const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+      const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+      document.getElementById("date").textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
+
+      const quoteIndex = now.getDate() % quotes.length;
+      document.getElementById("quote").textContent = quotes[quoteIndex];
+    }
+
+    updateWidget();
+    setInterval(updateWidget, 1000);
+  </script>
+</body>
+</html>
