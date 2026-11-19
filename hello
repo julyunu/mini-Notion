@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morning Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      font-family: 'Inter', sans-serif;
+      color: #4f4733;
+    }
+
+    .left-panel {
+      background-color: #ece2c6;
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .right-panel {
+      background-color: #f7f2e4;
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .badge {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: #cbb987;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      color: #f7f2e4;
+      font-size: 24px;
+    }
+
+    .kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8b7e5c;
+      margin-bottom: 6px;
+    }
+
+    .title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 40px;
+      line-height: 1.05;
+      font-weight: 400;
+      color: #3c3523;
+      margin-bottom: 8px;
+    }
+
+    .title em {
+      font-style: italic;
+      color: #8d7b4c;
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 19px;
+      color: #6c6146;
+      margin-bottom: 18px;
+    }
+
+    .btn-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #8d7b4c;
+      color: #fbf8ef;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #cfc29e;
+      color: #7c6f4d;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+      background: transparent;
+    }
+
+    @media (max-width: 768px) {
+      body { grid-template-columns: 1fr; }
+      .right-panel { align-items: flex-start; text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <section class="left-panel">
+    <div class="badge" aria-hidden="true">♡</div>
+    <div>
+      <div class="kicker" id="greeting-day">GOOD MORNING · THURSDAY</div>
+      <h1 class="title">welcome back, <em>lovely</em></h1>
+      <p class="subtitle">Love writing it down? Plan the life you're writing about.</p>
+      <a class="btn-solid" href="#planner">• Get the Aesthetic Life Planner →</a>
+    </div>
+  </section>
+
+  <section class="right-panel">
+    <div class="kicker">FOR THIS MORNING</div>
+    <p class="subtitle">Pick today's mood honestly. No wrong answers.</p>
+    <a class="btn-outline" href="#collection">• See the complete collection →</a>
+  </section>
+
+  <script>
+    const now = new Date();
+    const days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+    const period = now.getHours() < 12 ? "GOOD MORNING" : now.getHours() < 18 ? "GOOD AFTERNOON" : "GOOD EVENING";
+    document.getElementById("greeting-day").textContent = `${period} · ${days[now.getDay()]}`;
+  </script>
+</body>
+</html>
