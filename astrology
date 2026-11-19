@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pastel Lavender Moon & Sky Widget</title>
+  <title>Cosmic Lavender Clock & Moon Widget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
@@ -16,13 +16,13 @@
 
     body {
       min-height: 100vh;
-      background-color: #f3eff9; /* Nền tím pastel dịu nhẹ */
+      background-color: #f6f3fa; /* Nền tím lavender pastel dịu nhẹ */
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       text-align: center;
-      padding: 24px 16px;
-      color: #46386b;
+      padding: 26px 16px 20px;
+      color: #2f234c;
     }
 
     .widget {
@@ -31,27 +31,27 @@
     }
 
     .greeting {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Lora', Georgia, serif;
       font-style: italic;
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 400;
-      color: #3d3061;
-      line-height: 1.15;
+      color: #3b2d5e;
+      line-height: 1.2;
       margin-bottom: 4px;
     }
 
     .clock {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 54px;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 52px;
       font-weight: 400;
-      letter-spacing: 0.02em;
-      color: #2f2352;
+      letter-spacing: 0.01em;
+      color: #2c1e4a;
       line-height: 1.02;
-      margin-bottom: 8px;
-      cursor: pointer; /* Hiện bàn tay khi di chuột vào đồng hồ */
-      user-select: none; /* Tránh bôi đen chữ khi bấm nhanh */
-      transition: opacity 0.2s ease, transform 0.15s ease;
+      margin-bottom: 6px;
+      cursor: pointer;
+      user-select: none;
       display: inline-block;
+      transition: opacity 0.2s ease, transform 0.15s ease;
     }
 
     .clock:hover {
@@ -63,188 +63,292 @@
     }
 
     .date {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 13.5px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11.5px;
       font-weight: 500;
       letter-spacing: 0.16em;
-      color: #8978b8;
+      color: #7d6fa0;
       text-transform: uppercase;
-      line-height: 1.25;
+      line-height: 1.3;
     }
 
     .divider {
-      width: 56px;
+      width: 46px;
       height: 1px;
-      background-color: #c8bce3;
-      margin: 13px auto 15px;
+      background-color: #c5b6e0;
+      margin: 14px auto;
       border: none;
     }
 
     .moon-row {
-      display: inline-flex;
-      align-items: center;
+      display: flex;
       justify-content: center;
-      gap: 11px;
-      margin-bottom: 8px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
     }
 
-    .moon-svg {
-      width: 30px;
-      height: 30px;
+    .moon-icon {
+      width: 24px;
+      height: 24px;
       flex-shrink: 0;
     }
 
-    .moon-label {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 18.5px;
+    .moon-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
       font-weight: 400;
-      color: #493b70;
-      line-height: 1.2;
+      color: #544575;
     }
 
-    .astro-line {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 16.5px;
-      color: #7766a6;
-      line-height: 1.35;
+    .astro-row {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #6a5b8c;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .event-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #ebe4f5;
+      border: 1px solid #d5c7eb;
+      color: #4b3973;
+      padding: 5px 13px;
+      border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11.5px;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .event-badge.is-retrograde {
+      background-color: #f3e2ee;
+      border-color: #e0bfd6;
+      color: #6e355c;
     }
   </style>
 </head>
 <body>
   <main class="widget">
     <div class="greeting" id="greeting">Good afternoon, Vio</div>
-    <div class="clock" id="clock" onclick="toggleClockFormat()" title="Bấm để đổi định dạng 12h / 24h">3:38 pm</div>
+    <div class="clock" id="clock" onclick="toggleFormat()" title="Bấm để đổi định dạng 12h / 24h">3:38 pm</div>
     <div class="date" id="date">THURSDAY, NOVEMBER 19</div>
+
     <hr class="divider" />
 
     <div class="moon-row">
-      <svg class="moon-svg" id="moon-svg" viewBox="0 0 36 36" aria-hidden="true">
-        <circle cx="18" cy="18" r="15.5" fill="none" stroke="#46386b" stroke-width="1.6" />
-        <path id="moon-lit" d="" fill="#46386b" />
-      </svg>
-      <span class="moon-label" id="moon-label">Waxing Gibbous, 70% lit</span>
+      <svg class="moon-icon" id="moon-svg" viewBox="0 0 32 32" aria-hidden="true"></svg>
+      <span class="moon-text" id="moon-text">Waxing Gibbous, 70% lit</span>
     </div>
 
-    <div class="astro-line" id="astro-line">Sun in Scorpio · Moon in Pisces</div>
+    <div class="astro-row" id="astro-row">Sun in Scorpio · Moon in Pisces</div>
+
+    <div id="event-container"></div>
   </main>
 
   <script>
-    const USER_NAME = "Vio";
+    // Lưu trạng thái 12h / 24h (mặc định 12h như ảnh mẫu)
+    let is24Hour = localStorage.getItem("vio_clock_24h") === "true";
 
-    // Ghi nhớ chế độ 12h hoặc 24h người dùng đã chọn (mặc định là 12h)
-    let is24Hour = localStorage.getItem("violette_is24h") === "true";
-
-    const dailyAstro = [
-      "Sun in Scorpio · Moon in Pisces",
-      "Sun in Scorpio · Moon in Aries",
-      "Sun in Scorpio · Moon in Taurus",
-      "Sun in Scorpio · Moon in Gemini",
-      "Sun in Scorpio · Moon in Cancer",
-      "Sun in Scorpio · Moon in Leo",
-      "Sun in Scorpio · Moon in Virgo",
-      "Sun in Scorpio · Moon in Libra",
-      "Sun in Scorpio · Moon in Scorpio",
-      "Sun in Sagittarius · Moon in Sagittarius",
-      "Sun in Sagittarius · Moon in Capricorn",
-      "Sun in Sagittarius · Moon in Aquarius"
-    ];
-
-    function toggleClockFormat() {
+    function toggleFormat() {
       is24Hour = !is24Hour;
-      localStorage.setItem("violette_is24h", is24Hour);
-      updateWidget();
+      localStorage.setItem("vio_clock_24h", is24Hour);
+      updateAll();
     }
 
-    function getDayOfYear(date) {
-      const start = new Date(date.getFullYear(), 0, 0);
-      const diff = date - start;
-      return Math.floor(diff / (1000 * 60 * 60 * 24));
+    // Chuyển đổi Date sang Julian Day
+    function toJulianDay(date) {
+      return date.getTime() / 86400000 + 2440587.5;
     }
 
-    function getMoonPhase(date) {
-      const synodicMonth = 29.53058867;
-      const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14, 0);
-      const daysSince = (date.getTime() - knownNewMoon) / (1000 * 60 * 60 * 24);
-      const phase = ((daysSince % synodicMonth) + synodicMonth) % synodicMonth / synodicMonth;
-      return phase;
+    // Tính kinh độ hoàng đạo của Mặt Trời (độ 0 - 360)
+    function getSunLongitude(jd) {
+      const n = jd - 2451545.0;
+      const L = (280.460 + 0.9856474 * n) % 360;
+      const g = ((357.528 + 0.9856003 * n) % 360) * (Math.PI / 180);
+      let lambda = L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g);
+      return ((lambda % 360) + 360) % 360;
     }
 
-    function getPhaseName(phase) {
-      if (phase < 0.03 || phase >= 0.97) return "New Moon";
-      if (phase < 0.22) return "Waxing Crescent";
-      if (phase < 0.28) return "First Quarter";
-      if (phase < 0.47) return "Waxing Gibbous";
-      if (phase < 0.53) return "Full Moon";
-      if (phase < 0.72) return "Waning Gibbous";
-      if (phase < 0.78) return "Last Quarter";
-      return "Waning Crescent";
+    // Tính kinh độ hoàng đạo của Mặt Trăng (độ 0 - 360)
+    function getMoonLongitude(jd) {
+      const n = jd - 2451545.0;
+      const L = (218.316 + 13.176396 * n) % 360;
+      const M = ((134.963 + 13.064993 * n) % 360) * (Math.PI / 180);
+      const F = ((93.272 + 13.229350 * n) % 360) * (Math.PI / 180);
+      let lambda = L + 6.289 * Math.sin(M) - 1.274 * Math.sin(2 * F - M) + 0.658 * Math.sin(2 * F);
+      return ((lambda % 360) + 360) % 360;
     }
 
-    function renderMoonGraphic(phase) {
-      const r = 15.5;
-      const cx = 18;
-      const cy = 18;
-      const litPath = document.getElementById("moon-lit");
+    // Đổi kinh độ sang tên Cung Hoàng Đạo
+    function getZodiacSign(longitude) {
+      const signs = [
+        "Aries", "Taurus", "Gemini", "Cancer",
+        "Leo", "Virgo", "Libra", "Scorpio",
+        "Sagittarius", "Capricorn", "Aquarius", "Pisces"
+      ];
+      const index = Math.floor(longitude / 30) % 12;
+      return signs[index];
+    }
 
-      const illumination = Math.round(((1 - Math.cos(2 * Math.PI * phase)) / 2) * 100);
-      const name = getPhaseName(phase);
-      document.getElementById("moon-label").textContent = `${name}, ${illumination}% lit`;
+    // Tính chu kỳ trăng, phần trăm sáng và vẽ SVG tuần trăng
+    function getMoonData(jd) {
+      const sunLon = getSunLongitude(jd);
+      const moonLon = getMoonLongitude(jd);
+      const phaseAngle = (((moonLon - sunLon) % 360) + 360) % 360;
+      const phase = phaseAngle / 360; // 0 -> 1
 
-      if (illumination <= 1) {
-        litPath.setAttribute("d", "");
+      // Phần trăm bề mặt được chiếu sáng
+      const illumination = Math.round(((1 - Math.cos((phaseAngle * Math.PI) / 180)) / 2) * 100);
+
+      let phaseName = "";
+      if (phase < 0.03 || phase >= 0.97) phaseName = "New Moon";
+      else if (phase < 0.22) phaseName = "Waxing Crescent";
+      else if (phase < 0.28) phaseName = "First Quarter";
+      else if (phase < 0.47) phaseName = "Waxing Gibbous";
+      else if (phase < 0.53) phaseName = "Full Moon";
+      else if (phase < 0.72) phaseName = "Waning Gibbous";
+      else if (phase < 0.78) phaseName = "Last Quarter";
+      else phaseName = "Waning Crescent";
+
+      return { phase, phaseName, illumination };
+    }
+
+    // Vẽ biểu tượng SVG tuần trăng sắc nét khớp với pha hiện tại
+    function renderMoonSVG(phase) {
+      const svg = document.getElementById("moon-svg");
+      const r = 13;
+      const cx = 16;
+      const cy = 16;
+      const darkColor = "#594388";
+      const lightColor = "#ede7f6";
+      const strokeColor = "#b8a8d8";
+
+      // Tính đường cong terminator
+      const isWaxing = phase <= 0.5;
+      const p = isWaxing ? phase * 2 : (phase - 0.5) * 2; // 0 -> 1
+      const rx = Math.abs(r * Math.cos(p * Math.PI));
+      const sweep1 = isWaxing ? 1 : 0;
+      const sweep2 = (isWaxing ? (p < 0.5 ? 0 : 1) : (p < 0.5 ? 1 : 0));
+
+      let litPath = "";
+      if (phase < 0.02 || phase > 0.98) {
+        litPath = ""; // Trăng non tối hoàn toàn
+      } else if (phase > 0.48 && phase < 0.52) {
+        // Trăng tròn sáng hoàn toàn
+        svg.innerHTML = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${lightColor}" stroke="${strokeColor}" stroke-width="1.2"/>`;
         return;
-      }
-      if (illumination >= 99) {
-        litPath.setAttribute("d", `M ${cx} ${cy - r} A ${r} ${r} 0 1 0 ${cx} ${cy + r} A ${r} ${r} 0 1 0 ${cx} ${cy - r} Z`);
-        return;
-      }
-
-      const waxing = phase < 0.5;
-      const rx = Math.abs(Math.cos(2 * Math.PI * phase)) * r;
-      const topY = cy - r;
-      const botY = cy + r;
-
-      let d = "";
-      if (waxing) {
-        const sweepInner = phase < 0.25 ? 0 : 1;
-        d = `M ${cx} ${topY} A ${r} ${r} 0 0 1 ${cx} ${botY} A ${rx} ${r} 0 0 ${sweepInner} ${cx} ${topY} Z`;
       } else {
-        const sweepInner = phase < 0.75 ? 1 : 0;
-        d = `M ${cx} ${topY} A ${r} ${r} 0 0 0 ${cx} ${botY} A ${rx} ${r} 0 0 ${sweepInner} ${cx} ${topY} Z`;
+        litPath = `M ${cx} ${cy - r} A ${r} ${r} 0 0 ${sweep1} ${cx} ${cy + r} A ${rx} ${r} 0 0 ${sweep2} ${cx} ${cy - r} Z`;
       }
-      litPath.setAttribute("d", d);
+
+      svg.innerHTML = `
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="${darkColor}" stroke="${strokeColor}" stroke-width="1.2"/>
+        ${litPath ? `<path d="${litPath}" fill="${lightColor}"/>` : ""}
+      `;
     }
 
-    function updateWidget() {
+    // Kiểm tra các hiện tượng thiên văn / chiêm tinh đáng chú ý
+    function getAstronomicalNotice(now, moonData) {
+      const y = now.getFullYear();
+      const m = now.getMonth() + 1;
+      const d = now.getDate();
+      const todayStr = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+
+      // Các kỳ Sao Thủy Nghịch Hành (Mercury Retrograde) 2026 - 2027
+      const mercuryRetrogrades = [
+        { start: "2026-02-26", end: "2026-03-20", sign: "Pisces" },
+        { start: "2026-06-29", end: "2026-07-23", sign: "Cancer" },
+        { start: "2026-10-24", end: "2026-11-13", sign: "Scorpio" },
+        { start: "2027-02-09", end: "2027-03-03", sign: "Pisces / Aquarius" },
+        { start: "2027-06-10", end: "2027-07-04", sign: "Cancer / Gemini" },
+        { start: "2027-10-07", end: "2027-10-28", sign: "Scorpio / Libra" }
+      ];
+
+      for (const rx of mercuryRetrogrades) {
+        if (todayStr >= rx.start && todayStr <= rx.end) {
+          return {
+            text: `☿ Mercury Retrograde in ${rx.sign} · Lưu ý giao tiếp & lịch trình`,
+            isRetrograde: true
+          };
+        }
+      }
+
+      // Kiểm tra Điểm phân & Điểm chí (Equinox & Solstice)
+      if (m === 3 && (d === 20 || d === 21)) {
+        return { text: "✦ Vernal Equinox · Xuân phân — Ngày & đêm cân bằng", isRetrograde: false };
+      }
+      if (m === 6 && (d === 20 || d === 21)) {
+        return { text: "☀ Summer Solstice · Hạ chí — Ngày dài nhất trong năm", isRetrograde: false };
+      }
+      if (m === 9 && (d === 22 || d === 23)) {
+        return { text: "🍂 Autumnal Equinox · Thu phân — Chuyển giao mùa mới", isRetrograde: false };
+      }
+      if (m === 12 && (d === 21 || d === 22)) {
+        return { text: "❄ Winter Solstice · Đông chí — Đêm dài nhất trong năm", isRetrograde: false };
+      }
+
+      // Kiểm tra Trăng Tròn & Trăng Non
+      if (moonData.phaseName === "Full Moon") {
+        return { text: "🌕 Full Moon Peak · Đỉnh Trăng Tròn — Năng lượng trực giác cao", isRetrograde: false };
+      }
+      if (moonData.phaseName === "New Moon") {
+        return { text: "🌑 New Moon · Trăng Non — Thời điểm đẹp để đặt ý định mới", isRetrograde: false };
+      }
+
+      // Mặc định khi bầu trời êm ả
+      return {
+        text: "✦ Clear Sky · Không có hành tinh lớn nghịch hành hôm nay",
+        isRetrograde: false
+      };
+    }
+
+    function updateAll() {
       const now = new Date();
 
+      // 1. Lời chào theo giờ
       const hour = now.getHours();
-      const period = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
-      document.getElementById("greeting").textContent = `${period}, ${USER_NAME}`;
+      const greetPrefix = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+      document.getElementById("greeting").textContent = `${greetPrefix}, Vio`;
 
+      // 2. Đồng hồ (12h hoặc 24h)
       const minutes = String(now.getMinutes()).padStart(2, "0");
       if (is24Hour) {
-        const hour24 = String(hour).padStart(2, "0");
-        document.getElementById("clock").textContent = `${hour24}:${minutes}`;
+        const hours24 = String(hour).padStart(2, "0");
+        document.getElementById("clock").textContent = `${hours24}:${minutes}`;
       } else {
         const ampm = hour >= 12 ? "pm" : "am";
         const displayHour = hour % 12 === 0 ? 12 : hour % 12;
         document.getElementById("clock").textContent = `${displayHour}:${minutes} ${ampm}`;
       }
 
+      // 3. Ngày tháng
       const days = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
       const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
       document.getElementById("date").textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
 
-      const phase = getMoonPhase(now);
-      renderMoonGraphic(phase);
+      // 4. Tính toán thiên văn (Tuần trăng & Cung Mặt Trời / Mặt Trăng)
+      const jd = toJulianDay(now);
+      const sunSign = getZodiacSign(getSunLongitude(jd));
+      const moonSign = getZodiacSign(getMoonLongitude(jd));
+      const moonData = getMoonData(jd);
 
-      const dayNum = getDayOfYear(now);
-      document.getElementById("astro-line").textContent = dailyAstro[dayNum % dailyAstro.length];
+      renderMoonSVG(moonData.phase);
+      document.getElementById("moon-text").textContent = `${moonData.phaseName}, ${moonData.illumination}% lit`;
+      document.getElementById("astro-row").textContent = `Sun in ${sunSign} · Moon in ${moonSign}`;
+
+      // 5. Lưu ý hiện tượng thiên văn
+      const notice = getAstronomicalNotice(now, moonData);
+      const container = document.getElementById("event-container");
+      container.innerHTML = `<span class="event-badge ${notice.isRetrograde ? "is-retrograde" : ""}">${notice.text}</span>`;
     }
 
-    updateWidget();
-    setInterval(updateWidget, 1000);
+    updateAll();
+    setInterval(updateAll, 1000);
   </script>
 </body>
 </html>
