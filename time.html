@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pastel Pink Clock Widget</title>
+  <title>Pastel Sage Green Planner & Clock Widget</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
     * {
       box-sizing: border-box;
@@ -16,88 +16,270 @@
 
     body {
       min-height: 100vh;
-      background-color: #fdf2f5; /* Nền hồng nhạt pastel */
+      background-color: #f1f6f1; /* Nền xanh lá pastel dịu dàng */
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       text-align: center;
-      padding: 24px;
-      color: #7a4958;
+      padding: 24px 16px 18px;
+      color: #3f5745;
     }
 
     .widget {
-      max-width: 520px;
+      max-width: 560px;
       width: 100%;
     }
 
     .greeting {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Lora', Georgia, serif;
       font-style: italic;
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 400;
-      color: #9e6273; /* Lời chào hồng trầm nhẹ */
-      margin-bottom: 4px;
+      line-height: 1.15;
+      color: #5c7a63;
+      margin-bottom: 3px;
     }
 
     .clock {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 56px;
+      font-size: 50px;
       font-weight: 400;
-      letter-spacing: 0.03em;
-      color: #7a4958; /* Đồng hồ nâu hồng đậm dịu mắt */
-      line-height: 1.1;
-      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+      color: #3f5745;
+      line-height: 0.98;
+      margin-bottom: 5px;
     }
 
     .date {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 20px;
-      letter-spacing: 0.06em;
-      color: #a66d7e; /* Ngày tháng hồng phấn đậm */
+      font-family: 'Lora', Georgia, serif;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+      color: #6a8771;
       text-transform: lowercase;
     }
 
     .divider {
-      width: 48px;
+      width: 44px;
       height: 1px;
-      background-color: #e4bcc8; /* Đường kẻ hồng nhạt */
-      margin: 14px auto;
+      background-color: #c5d9c8;
+      margin: 10px auto;
       border: none;
     }
 
-    .quote {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+    .quote-en {
+      font-family: 'Lora', Georgia, serif;
       font-style: italic;
-      font-size: 21px;
-      color: #965a6c; /* Câu quote hồng dusty rose */
-      line-height: 1.4;
+      font-size: 17px;
+      color: #496650;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .quote-vi {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 14.5px;
+      color: #68856f;
+      line-height: 1.35;
+      margin-bottom: 14px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #5c7a63;
+      color: #f7fbf7;
+      text-decoration: none;
+      padding: 7px 15px;
+      border-radius: 999px;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 13.5px;
+      line-height: 1.1;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #bfd4c3;
+      color: #4e6b55;
+      text-decoration: none;
+      padding: 7px 15px;
+      border-radius: 999px;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 13.5px;
+      line-height: 1.1;
+      background: transparent;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-solid:hover,
+    .btn-outline:hover {
+      opacity: 0.82;
     }
   </style>
 </head>
 <body>
   <main class="widget">
-    <div class="greeting" id="greeting">good morning, lovely</div>
+    <div class="greeting" id="greeting">good morning · hãy bắt đầu thật nhẹ nhàng nhé</div>
     <div class="clock" id="clock">11:00 am</div>
     <div class="date" id="date">thursday, november 19</div>
     <hr class="divider" />
-    <p class="quote" id="quote">“My energy is precious. I spend it wisely.”</p>
+    <p class="quote-en" id="quote-en">“Small steps every day quietly build the future you're dreaming of.”</p>
+    <p class="quote-vi" id="quote-vi">Những bước nhỏ mỗi ngày đang âm thầm xây nên tương lai mà bạn hằng mơ ước.</p>
+
+    <div class="actions">
+      <a class="btn-solid" href="#planner" target="_blank">✦ Open planner · Lập kế hoạch →</a>
+      <a class="btn-outline" href="#goals" target="_blank">• Daily goals · Mục tiêu hôm nay →</a>
+      <button class="btn-outline" type="button" onclick="randomQuote()" title="Đổi ngẫu nhiên câu khác">↻</button>
+    </div>
   </main>
 
   <script>
-    const quotes = [
-      "“My energy is precious. I spend it wisely.”",
-      "“Slow down. Everything you need will come to you at the right time.”",
-      "“Be gentle with yourself; you are doing the best you can.”",
-      "“Small, quiet steps still move you forward.”",
-      "“Protect your peace and honor your own pace.”"
+    // Kho 100 cặp câu tích cực, hướng về phía trước (Anh - Việt)
+    const forwardQuotes = [
+      { en: "“Small steps every day quietly build the future you're dreaming of.”", vi: "Những bước nhỏ mỗi ngày đang âm thầm xây nên tương lai mà bạn hằng mơ ước." },
+      { en: "“Every new morning is a fresh canvas waiting for your gentle strokes.”", vi: "Mỗi buổi sáng thức dậy là một khung tranh mới đang chờ những nét vẽ dịu dàng của bạn." },
+      { en: "“Trust the timing of your growth—seeds bloom when they are ready.”", vi: "Hãy tin vào nhịp độ trưởng thành của chính mình—hạt mầm sẽ nở hoa khi đủ nắng gió." },
+      { en: "“Focus on progress, not perfection; forward is forward.”", vi: "Tập trung vào sự tiến bộ chứ không phải sự hoàn hảo; chỉ cần tiến về phía trước là đủ." },
+      { en: "“Good things are quietly making their way toward you.”", vi: "Những điều tốt đẹp đang lặng lẽ tìm đường bước tới bên bạn." },
+      { en: "“Your future self will thank you for the gentle effort you put in today.”", vi: "Phiên bản tương lai của bạn sẽ biết ơn những nỗ lực bền bỉ bạn gieo xuống hôm nay." },
+      { en: "“Begin where you are, use what you have, and take one calm step.”", vi: "Bắt đầu từ nơi bạn đang đứng, dùng những gì bạn có và bước một bước thật bình tâm." },
+      { en: "“A fresh chapter starts the moment you decide to try again.”", vi: "Một chương mới luôn bắt đầu ngay khoảnh khắc bạn quyết định thử lại lần nữa." },
+      { en: "“Keep watering your dreams; even invisible roots are growing stronger.”", vi: "Cứ tiếp tục tưới tắm cho ước mơ của bạn; ngay cả những chiếc rễ dưới đất cũng đang lớn dần." },
+      { en: "“Today holds possibilities you haven't even imagined yet.”", vi: "Ngày hôm nay ẩn chứa những cơ hội tuyệt vời mà có thể bạn chưa từng nghĩ tới." },
+      { en: "“Discipline is simply choosing what you want most over what you want right now.”", vi: "Kỷ luật chỉ đơn giản là chọn điều bạn mong muốn nhất thay vì sự thoải mái nhất thời." },
+      { en: "“Look how far you've come from the things you once thought you couldn't do.”", vi: "Hãy nhìn xem bạn đã đi xa tới nhường nào so với những điều từng nghĩ mình không làm nổi." },
+      { en: "“One focused hour today can change the whole rhythm of your week.”", vi: "Một giờ tập trung trọn vẹn hôm nay có thể đổi mới nhịp điệu của cả tuần lễ." },
+      { en: "“You are capable of creating a life that feels as good as it looks.”", vi: "Bạn hoàn toàn đủ khả năng kiến tạo một cuộc sống vừa đẹp đẽ vừa bình yên từ bên trong." },
+      { en: "“Let curiosity lead you forward instead of fear holding you back.”", vi: "Hãy để sự tò mò dẫn lối bạn tiến lên thay vì để nỗi sợ níu chân lại." },
+      { en: "“Every effort you make today is an investment in tomorrow's peace.”", vi: "Mọi cố gắng bạn bỏ ra hôm nay đều là khoản đầu tư cho sự thảnh thơi của ngày mai." },
+      { en: "“Clear your mind, pick one priority, and move with steady grace.”", vi: "Dọn gọn tâm trí, chọn một ưu tiên quan trọng nhất và bước đi thật vững vàng." },
+      { en: "“The best days of your life are still waiting ahead of you.”", vi: "Những ngày rực rỡ nhất của cuộc đời bạn vẫn đang chờ ở phía trước." },
+      { en: "“Consistency beats intensity—show up gently every single day.”", vi: "Sự đều đặn luôn thắng sự bùng nổ nhất thời—hãy kiên trì hiện diện mỗi ngày." },
+      { en: "“Turn your 'one day' into 'day one' starting right now.”", vi: "Biến câu nói 'một ngày nào đó' thành 'ngày đầu tiên' ngay từ lúc này." },
+      { en: "“You have everything within you to make today meaningful.”", vi: "Bạn có sẵn mọi nội lực bên trong để biến ngày hôm nay trở nên thật ý nghĩa." },
+      { en: "“Don't rush the process; lasting things are built slowly and thoughtfully.”", vi: "Đừng vội vàng đốt cháy giai đoạn; những điều bền vững luôn được xây thật chậm và kỹ." },
+      { en: "“A year from now, you'll be so glad you didn't give up today.”", vi: "Một năm nữa nhìn lại, bạn sẽ thấy thật may mắn vì hôm nay mình đã không bỏ cuộc." },
+      { en: "“Keep your eyes on the horizon and your heart grounded in the present.”", vi: "Hướng ánh nhìn về phía chân trời nhưng giữ trái tim vững vàng ở phút giây hiện tại." },
+      { en: "“Small daily habits are the quiet architecture of a beautiful life.”", vi: "Những thói quen nhỏ hằng ngày chính là kiến trúc thầm lặng của một cuộc đời đẹp." },
+      { en: "“Step forward with quiet confidence—you are more prepared than you think.”", vi: "Bước tới với sự tự tin điềm tĩnh—bạn đã sẵn sàng hơn bạn nghĩ rất nhiều." },
+      { en: "“Each sunrise brings new strength, new clarity, and new hope.”", vi: "Mỗi bình minh lên đều mang theo nguồn sức mạnh mới, sự sáng suốt mới và hy vọng mới." },
+      { en: "“Create plans that excite your soul, not just fill your calendar.”", vi: "Lập những kế hoạch khiến tâm hồn bạn háo hức, chứ không chỉ để lấp đầy cuốn lịch." },
+      { en: "“Growth happens in the quiet choices you make when nobody is watching.”", vi: "Sự trưởng thành diễn ra trong những lựa chọn thầm lặng khi chẳng có ai dõi theo." },
+      { en: "“Stay open to pleasant surprises—life loves rewarding hopeful hearts.”", vi: "Luôn rộng lòng đón nhận những bất ngờ dễ thương—cuộc sống luôn ưu ái trái tim giàu hy vọng." },
+      { en: "“You don't need to see the whole staircase to take the first step.”", vi: "Bạn không cần nhìn thấy trọn vẹn cả cầu thang mới dám bước lên bậc đầu tiên." },
+      { en: "“Channel your energy into what you can build, learn, and improve today.”", vi: "Dồn năng lượng vào những gì bạn có thể xây dựng, học hỏi và cải thiện ngay hôm nay." },
+      { en: "“Your potential is endless when you move at a sustainable, joyful pace.”", vi: "Tiềm năng của bạn là vô hạn khi bạn bước đi với nhịp độ bền bỉ và đầy niềm vui." },
+      { en: "“Leave yesterday behind; today is eager to meet your best energy.”", vi: "Khép ngày hôm qua lại phía sau; hôm nay đang háo hức đón nguồn năng lượng đẹp nhất của bạn." },
+      { en: "“Dream big, plan simply, and act with kindness.”", vi: "Mơ ước thật lớn, lên kế hoạch thật giản đơn và hành động bằng sự tử tế." },
+      { en: "“Every skill you admire in others started as a beginner's first try.”", vi: "Mọi kỹ năng bạn ngưỡng mộ ở người khác đều từng bắt đầu từ lần thử đầu tiên vụng về." },
+      { en: "“Keep moving forward—even a slow tide still reaches the shore.”", vi: "Cứ tiếp tục tiến về phía trước—ngay cả con sóng chậm rãi rồi cũng sẽ chạm tới bờ." },
+      { en: "“Design your days around what truly matters to your heart.”", vi: "Thiết kế từng ngày của bạn xoay quanh những điều thực sự quan trọng với trái tim." },
+      { en: "“Success is built on quiet mornings, clear intentions, and steady follow-through.”", vi: "Thành công được dệt nên từ những buổi sáng tĩnh tại, ý định rõ ràng và sự kiên trì." },
+      { en: "“Believe in the person you are becoming.”", vi: "Hãy tin tưởng vào phiên bản tuyệt vời mà bạn đang từng ngày trở thành." },
+      { en: "“What you practice every day becomes who you are.”", vi: "Những gì bạn rèn luyện mỗi ngày sẽ dần định hình nên con người bạn." },
+      { en: "“There is magic in starting fresh with a clear plan and a calm heart.”", vi: "Luôn có phép màu trong việc bắt đầu lại với một kế hoạch rõ ràng và trái tim bình thản." },
+      { en: "“Let go of perfection and celebrate showing up.”", vi: "Buông bỏ sự cầu toàn và ăn mừng việc bạn đã bắt tay vào làm." },
+      { en: "“Your goals are closer than they were yesterday—keep going.”", vi: "Mục tiêu của bạn đã ở gần hơn ngày hôm qua một chút rồi—cứ bước tiếp nhé." },
+      { en: "“Plant seeds of effort today and trust the harvest ahead.”", vi: "Gieo những hạt giống nỗ lực hôm nay và tin vào mùa gặt rực rỡ phía trước." },
+      { en: "“Clarity comes from action, not from overthinking.”", vi: "Sự sáng tỏ đến từ hành động thực tế, chứ không đến từ việc suy nghĩ quá nhiều." },
+      { en: "“Make today a day your future self looks back on with a proud smile.”", vi: "Biến hôm nay thành một ngày mà phiên bản tương lai của bạn nhìn lại với nụ cười tự hào." },
+      { en: "“Stay patient, stay hopeful, and keep tending to your path.”", vi: "Giữ lòng kiên nhẫn, giữ niềm hy vọng và tiếp tục chăm chút cho con đường của riêng mình." },
+      { en: "“Every finished task frees up space for new inspiration.”", vi: "Mỗi đầu việc hoàn thành sẽ mở ra thêm khoảng trống cho những nguồn cảm hứng mới." },
+      { en: "“You are writing a story worth reading—make today's page count.”", vi: "Bạn đang viết nên một câu chuyện đáng đọc—hãy làm cho trang giấy hôm nay thật đáng giá." },
+      { en: "“Gentle persistence moves mountains over time.”", vi: "Sự bền bỉ dịu dàng theo năm tháng cũng có thể dời non lấp bể." },
+      { en: "“Welcome new challenges as stepping stones toward a stronger you.”", vi: "Đón nhận thử thách mới như những bậc đá dẫn tới một phiên bản vững vàng hơn của bạn." },
+      { en: "“Keep your promises to yourself—that is where self-trust blooms.”", vi: "Giữ trọn những lời hứa với chính mình—đó là nơi niềm tin vào bản thân đơm hoa." },
+      { en: "“Focus on the next right thing; the rest will fall into place.”", vi: "Chỉ cần tập trung làm tốt việc đúng đắn tiếp theo; mọi thứ còn lại sẽ tự vào guồng." },
+      { en: "“Fresh energy flows where clear intention goes.”", vi: "Nguồn năng lượng tươi mới luôn chảy về nơi có chủ đích rõ ràng." },
+      { en: "“You are allowed to evolve, level up, and outgrow old limits.”", vi: "Bạn hoàn toàn có quyền phát triển, nâng cấp bản thân và vượt qua những giới hạn cũ." },
+      { en: "“One calm, organized step at a time builds unstoppable momentum.”", vi: "Từng bước đi bình tĩnh và ngăn nắp sẽ tạo nên một đà tiến không gì cản nổi." },
+      { en: "“Look forward with hope; so many wonderful chapters haven't happened yet.”", vi: "Hướng về phía trước với niềm hy vọng; còn biết bao chương đời tuyệt đẹp chưa kịp mở ra." },
+      { en: "“Your consistency today is quietly unlocking tomorrow's freedom.”", vi: "Sự kỷ luật hôm nay của bạn đang âm thầm mở khóa cho sự tự do của ngày mai." },
+      { en: "“Choose progress over excuses, and peace over rush.”", vi: "Chọn sự tiến bộ thay vì lý do, và chọn sự bình tâm thay vì vội vã." },
+      { en: "“Even 15 minutes of focus moves you ahead of yesterday.”", vi: "Ngay cả 15 phút tập trung cũng đủ đưa bạn tiến xa hơn ngày hôm qua." },
+      { en: "“Let optimism be your compass as you plan your day.”", vi: "Hãy để sự lạc quan làm chiếc la bàn dẫn đường khi bạn lên kế hoạch cho ngày mới." },
+      { en: "“Everything you learn today becomes a tool for your future.”", vi: "Mọi điều bạn học hỏi hôm nay đều sẽ trở thành hành trang hữu ích cho tương lai." },
+      { en: "“Step into today expecting good things to unfold.”", vi: "Bước vào ngày hôm nay với niềm tin rằng những điều tốt đẹp đang dần hé mở." },
+      { en: "“You don't have to do it all today—just do what matters most.”", vi: "Bạn không cần phải làm xong tất cả trong hôm nay—chỉ cần làm điều quan trọng nhất." },
+      { en: "“Steady roots support the tallest trees—build your foundations with care.”", vi: "Bộ rễ vững chãi nâng đỡ những tán cây cao nhất—hãy chăm chút nền tảng của bạn thật kỹ." },
+      { en: "“Brighter seasons are always on their way.”", vi: "Những mùa rực rỡ hơn luôn đang trên đường tìm đến." },
+      { en: "“Turn your ideas into gentle action, one checkmark at a time.”", vi: "Biến ý tưởng thành hành động nhẹ nhàng, từng dấu tick hoàn thành một." },
+      { en: "“Be proud of the effort, not just the outcome.”", vi: "Tự hào vì sự nỗ lực của bản thân, chứ không chỉ vì kết quả cuối cùng." },
+      { en: "“A peaceful mind creates the clearest path forward.”", vi: "Một tâm trí bình an sẽ mở ra con đường phía trước sáng rõ nhất." },
+      { en: "“Keep showing up for your dreams—they are showing up for you too.”", vi: "Cứ tiếp tục hết lòng vì ước mơ của bạn—chúng cũng đang tiến lại gần bạn đấy." },
+      { en: "“Today is full of small opportunities to grow wiser and stronger.”", vi: "Hôm nay đầy ắp những cơ hội nhỏ để bạn trở nên sáng suốt và vững vàng hơn." },
+      { en: "“Your future is shaped by what you choose to nurture today.”", vi: "Tương lai của bạn được dệt nên từ những điều bạn chọn nuôi dưỡng ngay hôm nay." },
+      { en: "“Take a deep breath, set your intention, and watch how smoothly things flow.”", vi: "Hít một hơi thật sâu, đặt ra mục tiêu rõ ràng và ngắm nhìn mọi việc trôi chảy." },
+      { en: "“Every step forward, no matter how small, changes your view.”", vi: "Mỗi bước tiến về phía trước, dù nhỏ bé tới đâu, đều mở ra một tầm nhìn mới." },
+      { en: "“Trust yourself to figure things out as you go.”", vi: "Tin rằng bạn luôn đủ khéo léo để tìm ra cách giải quyết trên từng chặng đường." },
+      { en: "“Nurture your mind with positive thoughts and clear plans.”", vi: "Nuôi dưỡng tâm trí bằng những suy nghĩ tích cực và những kế hoạch rành mạch." },
+      { en: "“The energy you put out into your work today comes back multiplied.”", vi: "Nguồn năng lượng đẹp bạn gửi gắm vào công việc hôm nay sẽ quay trở lại gấp bội." },
+      { en: "“Keep building, keep learning, keep blooming at your own rhythm.”", vi: "Cứ tiếp tục xây dựng, tiếp tục học hỏi và nở hoa theo nhịp điệu riêng của bạn." },
+      { en: "“A clear plan turns overwhelming dreams into doable daily steps.”", vi: "Một kế hoạch rõ ràng sẽ biến những ước mơ lớn lao thành từng bước nhỏ dễ thực hiện." },
+      { en: "“You are stronger, wiser, and more resilient than you realize.”", vi: "Bạn mạnh mẽ, sáng suốt và kiên cường hơn những gì bạn vẫn tự nhận thấy." },
+      { en: "“Let today be a stepping stone toward a calmer, brighter tomorrow.”", vi: "Hãy để hôm nay làm bậc thềm đưa bạn tới một ngày mai bình yên và tươi sáng hơn." },
+      { en: "“Celebrate every small milestone on your way to bigger goals.”", vi: "Ăn mừng từng cột mốc nhỏ trên hành trình tiến tới những mục tiêu lớn hơn." },
+      { en: "“Stay curious, stay kind, and keep moving toward what lights you up.”", vi: "Luôn giữ sự tò mò, giữ lòng tử tế và bước về phía những điều thắp sáng tâm hồn bạn." },
+      { en: "“Good habits planted in spring become effortless shade in summer.”", vi: "Những thói quen tốt gieo từ mùa xuân sẽ trở thành bóng mát thảnh thơi vào mùa hạ." },
+      { en: "“Your vision is valid—give it time, patience, and daily care.”", vi: "Ước mơ của bạn hoàn toàn xứng đáng—hãy dành cho nó thời gian, sự kiên nhẫn và chăm chút mỗi ngày." },
+      { en: "“Start with clarity, work with calm, and finish with gratitude.”", vi: "Bắt đầu bằng sự rõ ràng, làm việc trong bình thản và khép lại bằng lòng biết ơn." },
+      { en: "“Momentum is built one intentional morning at a time.”", vi: "Đà bứt phá được tạo nên từ từng buổi sáng sống có chủ đích." },
+      { en: "“Look ahead with excitement—you are creating something wonderful.”", vi: "Nhìn về phía trước với sự háo hức—bạn đang tự tay tạo nên một điều thật tuyệt vời." },
+      { en: "“When you align your actions with your values, everything feels lighter.”", vi: "Khi hành động đồng điệu với giá trị bạn trân trọng, mọi việc đều trở nên nhẹ nhàng." },
+      { en: "“Give your best to today, and trust tomorrow to unfold beautifully.”", vi: "Dành trọn tâm huyết cho hôm nay, và tin rằng ngày mai sẽ mở ra thật rạng rỡ." },
+      { en: "“Every day is a chance to refine your path and step closer to your goals.”", vi: "Mỗi ngày đều là một cơ hội để tinh chỉnh con đường và tiến gần hơn tới mục tiêu." },
+      { en: "“Quiet focus today creates loud results tomorrow.”", vi: "Sự tập trung thầm lặng hôm nay sẽ tạo nên những kết quả rực rỡ ngày mai." },
+      { en: "“Keep your heart light and your direction clear.”", vi: "Giữ trái tim thật nhẹ nhõm và giữ phương hướng luôn sáng rõ." },
+      { en: "“You are the author of your schedule and the architect of your days.”", vi: "Bạn chính là tác giả của thời gian biểu và là kiến trúc sư cho từng ngày của mình." },
+      { en: "“Step forward bravely—the future favors those who keep trying.”", vi: "Bước tới thật can đảm—tương lai luôn mỉm cười với những người không ngừng cố gắng." },
+      { en: "“Let each checked box remind you of how capable you truly are.”", vi: "Hãy để mỗi ô việc hoàn thành nhắc bạn nhớ rằng bạn tài giỏi đến nhường nào." },
+      { en: "“A fresh start isn't a new year—it's a new mindset right now.”", vi: "Một khởi đầu mới không cần đợi tới năm mới—đó chính là tâm thế mới ngay lúc này." },
+      { en: "“Keep tending your garden; your season of bloom is coming.”", vi: "Cứ chăm chỉ vun xới khu vườn của mình; mùa nở hoa của bạn đang tới gần rồi." },
+      { en: "“Forward is a pace, no matter the speed. Keep going.”", vi: "Tiến về phía trước là một hành trình, bất kể tốc độ nhanh hay chậm. Cứ bước tiếp nhé." }
     ];
+
+    let currentIndex = 0;
+
+    function getDayOfYear(date) {
+      const start = new Date(date.getFullYear(), 0, 0);
+      const diff = date - start;
+      return Math.floor(diff / (1000 * 60 * 60 * 24));
+    }
+
+    function renderQuote(index) {
+      const item = forwardQuotes[index % forwardQuotes.length];
+      document.getElementById("quote-en").textContent = item.en;
+      document.getElementById("quote-vi").textContent = item.vi;
+    }
+
+    function randomQuote() {
+      let next = Math.floor(Math.random() * forwardQuotes.length);
+      if (next === currentIndex) {
+        next = (currentIndex + 1) % forwardQuotes.length;
+      }
+      currentIndex = next;
+      renderQuote(currentIndex);
+    }
 
     function updateWidget() {
       const now = new Date();
 
       const hour = now.getHours();
       const period = hour < 12 ? "good morning" : hour < 18 ? "good afternoon" : "good evening";
-      document.getElementById("greeting").textContent = `${period}, lovely`;
+      document.getElementById("greeting").textContent = `${period} · hãy bắt đầu thật nhẹ nhàng nhé`;
 
       const ampm = hour >= 12 ? "pm" : "am";
       const displayHour = hour % 12 === 0 ? 12 : hour % 12;
@@ -107,11 +289,10 @@
       const days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
       const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
       document.getElementById("date").textContent = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
-
-      const quoteIndex = now.getDate() % quotes.length;
-      document.getElementById("quote").textContent = quotes[quoteIndex];
     }
 
+    currentIndex = getDayOfYear(new Date()) % forwardQuotes.length;
+    renderQuote(currentIndex);
     updateWidget();
     setInterval(updateWidget, 1000);
   </script>
